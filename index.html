@@ -92,6 +92,19 @@
         font-size: 2rem;
       }
     }
+
+    /* Modal/Pop-up */
+    .modal-content {
+      padding: 20px;
+    }
+
+    .modal-header {
+      background-color: #f8f9fa;
+    }
+
+    .modal-footer {
+      border-top: 1px solid #dee2e6;
+    }
   </style>
 </head>
 <body>
@@ -197,8 +210,19 @@
         <label for="address" class="form-label">Delivery Address</label>
         <textarea class="form-control" id="address" rows="3" required></textarea>
       </div>
+      
       <h3>Total: ₹<span id="checkout-total">0</span></h3>
-      <button type="submit" class="btn btn-success mt-2" onclick="payWithUPI(event)">Pay via UPI</button>
+
+      <!-- Payment Options -->
+      <div class="mb-3">
+        <label class="form-label">Payment Method</label><br>
+        <input type="radio" id="upi" name="payment-method" value="UPI" checked>
+        <label for="upi">UPI</label><br>
+        <input type="radio" id="cod" name="payment-method" value="COD">
+        <label for="cod">Cash on Delivery</label><br>
+      </div>
+
+      <button type="submit" class="btn btn-success mt-2" onclick="handlePayment(event)">Submit Order</button>
     </form>
   </section>
 
@@ -211,6 +235,24 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Modal/Pop-up for Order Confirmation -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderModalLabel">Order Confirmation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Your order has been successfully placed!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     let cart = [];
@@ -264,20 +306,39 @@
       checkoutTotalElem.textContent = totalPrice;
     }
 
-    // UPI Payment
-    function payWithUPI(event) {
+    // Handle payment method (UPI or COD)
+    function handlePayment(event) {
       event.preventDefault();
 
+      const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
       const address = document.getElementById('address').value;
-
       const totalAmount = document.getElementById('checkout-total').textContent;
 
-      // UPI Payment Link (Replace this with your actual UPI link)
-      const upiLink = `upi://pay?pa=?pa=8056281542@ybl&pn=${name}&mc=0000&tid=123456789&url=https://yourwebsite.com&amount=${totalAmount}&note=Payment for Candles`;
+      // Prepare order summary
+      let orderSummary = `
+        Name: ${name}<br>
+        Email: ${email}<br>
+        Address: ${address}<br>
+        Total Amount: ₹${totalAmount}<br><br>
+        Order Details:`;
 
-      window.location.href = upiLink;
+      cart.forEach(item => {
+        orderSummary += `<br>- ${item.product} ₹${item.price}`;
+      });
+
+      // Send the order details to WhatsApp automatically
+      const whatsappPhoneNumber = "8056281542";  // Replace with the owner's WhatsApp number
+      const encodedOrderDetails = encodeURIComponent(orderSummary);
+      const whatsappLink = `https://wa.me/${whatsappPhoneNumber}?text=${encodedOrderDetails}`;
+      window.open(whatsappLink, "_blank");
+
+      // Show confirmation modal
+      var myModal = new bootstrap.Modal(document.getElementById('orderModal'), {
+        keyboard: false
+      });
+      myModal.show();
     }
 
     // Clear the cart
