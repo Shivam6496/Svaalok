@@ -153,23 +153,42 @@
   <section id="products" class="py-5">
     <div class="container">
       <h2 class="text-center mb-4">Our Candles</h2>
+      
       <div class="row g-4">
-        <!-- Product 1 -->
+        <!-- Product 1: With Carousel -->
         <div class="col-sm-6 col-md-4">
           <div class="card product-card h-100">
-            <img src="images/WhatsApp Image .jpg" class="card-img-top" alt="Lavender Calm">
+            <div id="carouselCandle" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="images/CandlePic1.jpg" class="d-block w-100" style="height: 200px; object-fit: cover;" alt="Candle 1">
+                </div>
+                <div class="carousel-item">
+                  <img src="images/CandlePic2.jpg" class="d-block w-100" style="height: 200px; object-fit: cover;" alt="Candle 2">
+                </div>
+                <div class="carousel-item">
+                  <img src="images/CandlePic3.avif" class="d-block w-100" style="height: 200px; object-fit: cover;" alt="Candle 3">
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselCandle" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselCandle" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
             <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Lavender Calm</h5>
-              <p class="card-text">₹200.00</p>
-              <button class="btn btn-success mt-auto" id="btn-lavender-calm" onclick="addToCart('Lavender Calm', 200, this)">Add to Cart (0)</button>
+              <h5 class="card-title">Candle Combo Pack</h5>
+              <p class="card-text">₹750.00</p>
+              <button class="btn btn-success mt-auto" onclick="addToCart('Candle Combo', 750, this)">Add to Cart (0)</button>
             </div>
           </div>
         </div>
-
+  
         <!-- Product 2 -->
         <div class="col-sm-6 col-md-4">
           <div class="card product-card h-100">
-            <img src="images/CandlePic2.jpg" class="card-img-top" alt="Vanilla Bean">
+            <img src="images/CandlePic2.jpg" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Vanilla Bean">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Vanilla Bean</h5>
               <p class="card-text">₹400.00</p>
@@ -177,11 +196,11 @@
             </div>
           </div>
         </div>
-
+  
         <!-- Product 3 -->
         <div class="col-sm-6 col-md-4">
           <div class="card product-card h-100">
-            <img src="images/CandlePic3.avif" class="card-img-top" alt="Citrus Burst">
+            <img src="images/CandlePic3.avif" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Citrus Burst">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">Citrus Burst</h5>
               <p class="card-text">₹400.00</p>
@@ -192,6 +211,7 @@
       </div>
     </div>
   </section>
+  
 
   <!-- Benefits -->
   <section id="benefits" class="benefits text-center">
