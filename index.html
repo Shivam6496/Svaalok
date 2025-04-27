@@ -275,7 +275,7 @@
       const totalAmount = document.getElementById('checkout-total').textContent;
 
       // UPI Payment Link (Replace this with your actual UPI link)
-      const upiLink = `https://upi/pay?pa=8056281542@ybl&pn=${name}&mc=0000&tid=123456789&url=https://yourwebsite.com&amount=${totalAmount}&note=Payment for Candles`;
+      const upiLink = `upi://pay?pa=?pa=8056281542@ybl&pn=${name}&mc=0000&tid=123456789&url=https://yourwebsite.com&amount=${totalAmount}&note=Payment for Candles`;
 
       window.location.href = upiLink;
     }
